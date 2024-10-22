@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate PDF with jsPDF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .question-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .question {
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 14px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+            text-align: left;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Questionnaire</h1>
+
+    <div id="questions">
+        <!-- Questions with Textareas -->
+        <div class="question">
+            <label class="question-label">Question 1: What is the impact of climate change on global ecosystems?</label>
+            <textarea id="q1">Climate change has a significant impact on ecosystems worldwide. Rising temperatures, altered precipitation patterns, and increasing frequency of extreme weather events have led to shifts in species distributions, changes in breeding and migration patterns, and the loss of biodiversity. Forests, wetlands, and marine ecosystems are particularly vulnerable, as are species dependent on specific environmental conditions. For example, coral reefs are facing bleaching due to warmer ocean temperatures. Without significant efforts to reduce carbon emissions, these changes are likely to accelerate, causing irreparable damage to global ecosystems.</textarea>
+        </div>
+        <div class="question">
+            <label class="question-label">Question 2: What are the key benefits of adopting a cloud computing infrastructure?</label>
+            <textarea id="q2">Cloud computing offers several key benefits. First, it provides scalability, allowing businesses to easily adjust their computing resources based on demand. Second, it reduces costs by eliminating the need for large upfront investments in hardware. Cloud services typically follow a pay-as-you-go model, making them more cost-effective. Additionally, cloud computing enhances collaboration by allowing employees to access data and applications from anywhere, facilitating remote work. Finally, it improves security by providing built-in security measures and backups that protect data from breaches or data loss.</textarea>
+        </div>
+        <div class="question">
+            <label class="question-label">Question 3: Explain the concept of machine learning in a few sentences.</label>
+            <textarea id="q3">Machine learning is a subset of artificial intelligence (AI) that enables computers to learn from data and make predictions or decisions without explicit programming. Algorithms analyze large datasets to identify patterns, allowing the system to improve its performance over time. Applications of machine learning include image recognition, natural language processing, and recommendation systems. The primary goal of machine learning is to create systems that can learn and adapt independently, making them more efficient and accurate as they process more data.</textarea>
+        </div>
+        <div class="question">
+            <label class="question-label">Question 4: What role does renewable energy play in reducing carbon emissions?</label>
+            <textarea id="q4">Renewable energy plays a crucial role in reducing carbon emissions by providing clean and sustainable alternatives to fossil fuels. Wind, solar, hydro, and geothermal energy sources generate electricity without releasing greenhouse gases. By transitioning to renewable energy, we can significantly lower the amount of CO2 and other pollutants released into the atmosphere. This helps combat climate change, improves air quality, and reduces our dependence on non-renewable energy sources, which are finite and environmentally damaging. Governments and industries worldwide are investing in renewable energy to achieve long-term environmental and economic sustainability.</textarea>
+        </div>
+        <div class="question">
+            <label class="question-label">Question 5: Describe the significance of data privacy in the digital age.</label>
+            <textarea id="q5">Data privacy is increasingly important in the digital age as individuals and organizations rely on online platforms for communication, commerce, and information sharing. Protecting personal data from unauthorized access, misuse, or breaches is essential for maintaining trust and ensuring compliance with regulations like GDPR. With the rise of cyberattacks and data breaches, safeguarding sensitive information has become a priority for businesses and governments. Failing to ensure data privacy can lead to identity theft, financial loss, and reputational damage, making it a critical issue in today's interconnected world.</textarea>
+        </div>
+    </div>
+
+    <h1>Tables</h1>
+    <table id="table1">
+        <thead>
+            <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+                <th>Column 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Data 1</td><td>Data 2</td><td>Data 3</td></tr>
+            <tr><td>Data 4</td><td>Data 5</td><td>Data 6</td></tr>
+            <tr><td>Data 7</td><td>Data 8</td><td>Data 9</td></tr>
+            <tr><td>Data 10</td><td>Data 11</td><td>Data 12</td></tr>
+            <tr><td>Data 13</td><td>Data 14</td><td>Data 15</td></tr>
+            <tr><td>Data 16</td><td>Data 17</td><td>Data 18</td></tr>
+        </tbody>
+    </table>
+
+    <table id="table2">
+        <thead>
+            <tr>
+                <th>Column A</th>
+                <th>Column B</th>
+                <th>Column C</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Data A1</td><td>Data B1</td><td>Data C1</td></tr>
+            <tr><td>Data A2</td><td>Data B2</td><td>Data C2</td></tr>
+            <tr><td>Data A3</td><td>Data B3</td><td>Data C3</td></tr>
+            <tr><td>Data A4</td><td>Data B4</td><td>Data C4</td></tr>
+            <tr><td>Data A5</td><td>Data B5</td><td>Data C5</td></tr>
+            <tr><td>Data A6</td><td>Data B6</td><td>Data C6</td></tr>
+        </tbody>
+    </table>
+
+    <button onclick="generatePDF()">Download PDF</button>
+
+    <script>
+       function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const pageHeight = doc.internal.pageSize.height; // Page height
+    const marginTop = 20;
+    const marginBottom = 20;
+    const contentHeight = pageHeight - marginTop - marginBottom; // Usable content height
+    let yPosition = marginTop; // Initial position for content
+
+    // Set font and size for title
+    doc.setFontSize(18);
+    doc.text('Questionnaire', 10, yPosition);
+    yPosition += 10; // Adjust the y-position for the next content
+
+    // Function to add content with pagination
+    function addTextWithPagination(text, y) {
+        const lines = doc.splitTextToSize(text, 180);
+        for (let i = 0; i < lines.length; i++) {
+            if (y > contentHeight) { // Check if we exceed the page content height
+                doc.addPage();
+                y = marginTop;
+            }
+            doc.text(lines[i], 10, y);
+            y += 10;
+        }
+        return y;
+    }
+
+    // Adding questions and answers
+    for (let i = 1; i <= 5; i++) {
+        // Correctly fetch question text
+        const questionText = `Question ${i}: ${document.querySelector(`.question:nth-of-type(${i}) .question-label`).innerText}`;
+        const answerText = document.getElementById(`q${i}`).value;
+
+        // Add question and answer with pagination handling
+        yPosition = addTextWithPagination(questionText, yPosition + 10);
+        yPosition = addTextWithPagination(answerText, yPosition + 10);
+    }
+
+    // Adding tables with pagination check
+    const remainingSpace = contentHeight - yPosition;
+
+    if (remainingSpace > 50) { // Enough space for both tables
+        doc.autoTable({ html: '#table1', startY: yPosition + 10 });
+        yPosition = doc.autoTable.previous.finalY + 10; // Update yPosition after table 1
+        doc.autoTable({ html: '#table2', startY: yPosition + 10 });
+    } else {
+        doc.addPage(); // Add new page for tables
+        doc.autoTable({ html: '#table1', startY: marginTop });
+        doc.autoTable({ html: '#table2', startY: doc.autoTable.previous.finalY + 10 });
+    }
+
+    // Save the PDF
+    doc.save('questions_and_tables.pdf');
+}
+
+       
+    </script>
+</body>
+</html>
